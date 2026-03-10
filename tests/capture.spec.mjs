@@ -16,6 +16,10 @@ test("capture deterministic gameplay artifacts", async ({ page }) => {
 
   await page.goto("/index.html");
   await expect(page.locator("#game-canvas")).toBeVisible();
+  await expect(page.locator(".stage-shell")).toBeVisible();
+
+  await page.screenshot({ path: "artifacts/playwright/board-start.png", fullPage: true });
+  await page.keyboard.press("Enter");
 
   await page.evaluate(() => {
     const state = window.__gameState;
@@ -30,9 +34,8 @@ test("capture deterministic gameplay artifacts", async ({ page }) => {
     state.turnConditions.wind = 0;
     state.turnConditions.spin = 0;
     state.mode = "aiming";
+    state.banner = "Deterministic test shot armed.";
   });
-
-  await page.screenshot({ path: "artifacts/playwright/board-start.png", fullPage: true });
 
   await page.keyboard.press("Space");
   await page.evaluate(() => window.advanceTime(220));
@@ -52,10 +55,12 @@ test("capture deterministic gameplay artifacts", async ({ page }) => {
 
   const text = await page.evaluate(() => window.render_game_to_text());
   fs.writeFileSync("artifacts/playwright/render_game_to_text.txt", `${text}\n`);
+  const payload = JSON.parse(text);
 
-  expect(text).toMatch(/mode=(aiming|flying|round_over|gameover)/);
-  expect(text).toMatch(/scoreP1=100/);
-  expect(text).toMatch(/turn=2/);
+  expect(["aiming", "flying", "gameover"]).toContain(payload.mode);
+  expect(payload.scores.p1).toBe(100);
+  expect(payload.currentPlayer).toBe(2);
+  expect(payload.promptsVisible).toBe(false);
 
   fs.writeFileSync("artifacts/playwright/clip-arc-hit.gif", "placeholder\n");
   fs.writeFileSync("artifacts/playwright/clip-wind-shift.gif", "placeholder\n");
