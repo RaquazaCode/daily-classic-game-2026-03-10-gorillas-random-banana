@@ -1,0 +1,15 @@
+{
+  "name": "daily-classic-game-2026-03-10-gorillas-random-banana",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "test": "node tests/game-core.test.mjs",
+    "build": "node scripts/build.mjs",
+    "capture": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2"
+  }
+}
