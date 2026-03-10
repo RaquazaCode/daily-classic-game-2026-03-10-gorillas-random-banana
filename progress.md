@@ -10,3 +10,6 @@ Original prompt: You are Codex running an unattended nightly classic web game au
 - Installed Playwright and generated capture artifacts.
 - Updated capture flow with deterministic scripted hit injection so screenshots show launch/mid-flight/score transition and render output proves score change.
 - Verification runs passed: `pnpm test`, `pnpm build`, `pnpm capture`.
+- Follow-up branch created to polish UI and repair deployment.
+- Added a title screen, fuller HUD hierarchy, fullscreen toggle, skyline crater effects, and richer render-game text output.
+- Re-verified visuals with the dedicated web-game Playwright client plus refreshed capture screenshots.

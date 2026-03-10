@@ -3,16 +3,28 @@ import test from "node:test";
 
 import { createGame, input, renderGameToText, step } from "../src/game-core.js";
 
-test("createGame initializes deterministic state", () => {
+test("createGame initializes deterministic title state", () => {
   const state = createGame(1234);
-  assert.equal(state.mode, "aiming");
+  assert.equal(state.mode, "title");
   assert.equal(state.players.length, 2);
   assert.equal(state.currentPlayerIndex, 0);
-  assert.match(renderGameToText(state), /mode=aiming/);
+  const payload = JSON.parse(renderGameToText(state));
+  assert.equal(payload.mode, "title");
+  assert.equal(payload.currentPlayer, 1);
+  assert.equal(payload.promptsVisible, true);
+});
+
+test("start command moves title screen into aiming state", () => {
+  const state = createGame(12);
+  input(state, "start");
+  assert.equal(state.mode, "aiming");
+  const payload = JSON.parse(renderGameToText(state));
+  assert.equal(payload.mode, "aiming");
 });
 
 test("banana throw transitions to flying then resolves turn", () => {
   const state = createGame(99);
+  input(state, "start");
   input(state, "throwBanana");
   assert.equal(state.mode, "flying");
 
@@ -30,6 +42,7 @@ test("banana throw transitions to flying then resolves turn", () => {
 
 test("pause prevents physics advancement until resumed", () => {
   const state = createGame(77);
+  input(state, "start");
   input(state, "throwBanana");
   const beforeX = state.banana.x;
   input(state, "togglePause");

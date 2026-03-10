@@ -1,7 +1,7 @@
 # daily-classic-game-2026-03-10-gorillas-random-banana
 
 <div align="center">
-  <p>Deterministic Gorillas-style artillery duel with seeded random banana arc perturbations each round.</p>
+  <p>Cinematic Gorillas-style artillery duel with a poster-like title screen, seeded wind ribbons, and skyline-cratering banana arcs.</p>
 </div>
 
 <div align="center">
@@ -15,17 +15,19 @@
 4. `pnpm dev` then open `http://127.0.0.1:4173/index.html`
 
 ## How To Play
+- `Enter` or `Space` on the title screen: start the duel
 - `Arrow Left/Right`: decrease/increase aim angle
 - `Arrow Up/Down`: increase/decrease throw power
 - `Space`: throw banana
 - `P`: pause or resume
 - `R`: reset match
+- `F`: toggle fullscreen
 - `Enter`: restart after game over
 
 ## Rules
 - Two gorillas stand on randomized rooftops.
 - Only the active gorilla can throw.
-- Bananas collide with skyline blocks and gorillas.
+- Bananas collide with skyline blocks and gorillas, carving craters into buildings.
 - First player to reach target score wins the match.
 
 ## Scoring
@@ -34,7 +36,7 @@
 - Out-of-bounds throw: 0 points and turn changes
 
 ## Twist
-Random banana physics: each round samples deterministic wind and spin factors from seeded RNG, changing arc behavior while keeping test runs reproducible.
+Random banana physics: each round samples deterministic wind and spin factors from seeded RNG, changing arc behavior while keeping test runs reproducible and the wind ribbon visually legible.
 
 ## Verification
 - Unit simulation checks: `pnpm test`
