@@ -1,0 +1,1 @@
+coord=origin_top_left_x_right_y_down | mode=aiming | paused=false | turn=2 | activeAngle=136.0 | activePower=360.0 | wind=28.17 | spin=-7.56 | p1=(240.0,420.0) | p2=(540.0,420.0) | banana=none | scoreP1=100 | scoreP2=0 | winner=none
